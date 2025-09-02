@@ -4,4 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="client_app.Views.Auth.RegisterView">
+	<Grid ColumnDefinitions="* * *">
+		<StackPanel Grid.Column="1"
+					VerticalAlignment="Center"
+					Spacing="5">
+			<TextBlock Text="Login"/>
+			<TextBox Text=""
+					 Watermark="Login..."/>
+
+			<TextBlock Text="Password"
+					   Margin="0 20 0 0"/>
+			<Grid ColumnDefinitions="* 30">
+				<TextBox Text=""
+						 HorizontalAlignment="Stretch"
+						 Watermark="Password..."
+						 Margin="0 0 5 0"/>
+				<Button Grid.Column="1"
+						Content="H"/>
+			</Grid>
+
+			<TextBlock Text="Repeat the password"/>
+			<Grid ColumnDefinitions="* 30">
+				<TextBox Text=""
+						 HorizontalAlignment="Stretch"
+						 Watermark="Password..."
+						 Margin="0 0 5 0"/>
+				<Button Grid.Column="1"
+						Content="H"/>
+			</Grid>
+
+			<Button Content="Register"
+					HorizontalAlignment="Center"
+					Margin="0 5 0 0"/>
+		</StackPanel>
+	</Grid>
+
 </UserControl>
