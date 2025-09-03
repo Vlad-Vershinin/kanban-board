@@ -24,14 +24,9 @@
 			</Grid>
 
 			<TextBlock Text="Repeat the password"/>
-			<Grid ColumnDefinitions="* 30">
 				<TextBox Text=""
 						 HorizontalAlignment="Stretch"
-						 Watermark="Password..."
-						 Margin="0 0 5 0"/>
-				<Button Grid.Column="1"
-						Content="H"/>
-			</Grid>
+						 Watermark="Password..."/>
 
 			<Button Content="Register"
 					HorizontalAlignment="Center"
