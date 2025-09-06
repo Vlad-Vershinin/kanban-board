@@ -10,7 +10,6 @@ public class RegisterViewModel : ViewModelBase
 {
     [Reactive] public char PasswordSymbol { get; set; } = '•';
 
-
     private readonly INavigationService _navigationService;
     public ReactiveCommand<Unit, Unit> GoToLoginCommand { get; }
     public ReactiveCommand<Unit, Unit> ChangePasswordVisibilityCommand { get; }

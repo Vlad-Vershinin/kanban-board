@@ -11,13 +11,13 @@
 					VerticalAlignment="Center"
 					Spacing="5">
 			<TextBlock Text="Login"/>
-			<TextBox Text=""
+			<TextBox Text="{Binding Login}"
 					 Watermark="Login..."/>
 
 			<TextBlock Text="Password"
 					   Margin="0 20 0 0"/>
 			<Grid ColumnDefinitions="* 30">
-				<TextBox Text=""
+				<TextBox Text="{Binding Password}"
 						 HorizontalAlignment="Stretch"
 						 Watermark="Password..."
 						 Margin="0 0 5 0"
@@ -32,8 +32,13 @@
 						Content="Go To Register"
 						Command="{Binding GoToRegisteCommand}"/>
 			</DockPanel>
+
+			<TextBlock Text="The username or password is incorrect" 
+					   IsVisible="{Binding AuthWarning}"
+					   Foreground="Red"/>
 			
 			<Button Content="Log in"
+					Command="{Binding LoginCommand}"
 					HorizontalAlignment="Center"
 					Margin="0 5 0 0"/>
 		</StackPanel>
