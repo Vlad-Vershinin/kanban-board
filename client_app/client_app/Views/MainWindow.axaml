@@ -7,6 +7,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="client_app.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="Kanban Board">
-        <views:MainView />
+        Title="Kanban Board"
+		x:DataType="vm:MainViewModel">
+
+	<ContentControl Content="{Binding NavigationService.CurrentUserControl}"/>
 </Window>
