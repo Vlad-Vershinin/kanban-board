@@ -3,7 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="client_app.Views.Auth.LoginView">
+             x:Class="client_app.Views.Auth.LoginView"
+			 xmlns:vm="clr-namespace:client_app.ViewModels.Auth"
+			 x:DataType="vm:LoginViewModel">
 	<Grid ColumnDefinitions="* * *">
 		<StackPanel Grid.Column="1"
 					VerticalAlignment="Center"
@@ -22,6 +24,12 @@
 				<Button Grid.Column="1"
 						Content="H"/>
 			</Grid>
+
+			<DockPanel LastChildFill="False">
+				<Button DockPanel.Dock="Right"
+						Content="Go To Register"
+						Command="{Binding GoToRegisteCommand}"/>
+			</DockPanel>
 			
 			<Button Content="Log in"
 					HorizontalAlignment="Center"

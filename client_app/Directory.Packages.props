@@ -15,6 +15,7 @@
     <PackageVersion Include="Avalonia.Browser" Version="11.3.5" />
     <PackageVersion Include="Avalonia.Android" Version="11.3.5" />
     <PackageVersion Include="Avalonia.ReactiveUI" Version="11.3.5" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
     <PackageVersion Include="ReactiveUI" Version="21.0.1" />
     <PackageVersion Include="ReactiveUI.SourceGenerators" Version="2.4.1" />
     <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.1.17" />

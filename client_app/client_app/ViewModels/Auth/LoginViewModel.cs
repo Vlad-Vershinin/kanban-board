@@ -1,13 +1,25 @@
 ﻿using client_app.Services;
+using client_app.Views.Auth;
+using ReactiveUI;
+using System.Diagnostics;
+using System.Reactive;
 
 namespace client_app.ViewModels.Auth;
 
 public class LoginViewModel : ViewModelBase
 {
-    public readonly NavigationService NavigationService;
+    private readonly INavigationService _navigationService;
+    public ReactiveCommand<Unit, Unit> GoToRegisteCommand { get; }
 
-    public LoginViewModel(NavigationService navigationService)
+    public LoginViewModel(INavigationService navigationService)
     {
+        _navigationService = navigationService;
 
+        GoToRegisteCommand = ReactiveCommand.Create(() =>
+        {
+            _navigationService.NavigateTo<RegisterView>();
+        });
+
+        Debug.WriteLine("Create LoginViewModel");
     }
 }

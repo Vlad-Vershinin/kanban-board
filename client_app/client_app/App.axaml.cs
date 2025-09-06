@@ -3,12 +3,19 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using client_app.Services;
 using client_app.ViewModels;
+using client_app.ViewModels.Auth;
 using client_app.Views;
+using client_app.Views.Auth;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace client_app;
 
 public partial class App : Application
 {
+    private IServiceProvider _serviceProvider;
+    public static IServiceProvider ServiceProvider { get; private set; }
+
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
@@ -16,24 +23,46 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        var NavigationService = new NavigationService();
+        var services = new ServiceCollection();
+
+        services.AddSingleton<INavigationService, NavigationService>();
+
+        services.AddSingleton<MainViewModel>();
+        services.AddSingleton<LoginViewModel>();
+        services.AddSingleton<RegisterViewModel>();
+
+        services.AddSingleton<MainWindow>();
+        services.AddSingleton<MainView>();
+        services.AddSingleton<LoginView>();
+        services.AddSingleton<RegisterView>();
+
+        _serviceProvider = services.BuildServiceProvider();
+        ServiceProvider = _serviceProvider;
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel(NavigationService)
-            };
+            var mainWindow = _serviceProvider.GetService<MainWindow>();
+
+            var mainViewModel = _serviceProvider.GetService<MainViewModel>();
+
+            mainWindow.DataContext = mainViewModel;
+            desktop.MainWindow = mainWindow;
+
+            var navigationService = _serviceProvider.GetService<INavigationService>();
+            navigationService.NavigateTo<LoginView>();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
-            {
-                DataContext = new MainViewModel(NavigationService)
-            };
+            var mainView = _serviceProvider.GetService<MainView>();
+            var mainViewModel = _serviceProvider.GetService<MainViewModel>();
+
+            mainView.DataContext = mainViewModel;
+            singleViewPlatform.MainView = mainView;
+
+            var navigationService = _serviceProvider.GetService<INavigationService>();
+            navigationService.NavigateTo<LoginView>();
         }
 
         base.OnFrameworkInitializationCompleted();
     }
-
 }

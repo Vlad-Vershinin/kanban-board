@@ -4,11 +4,13 @@ namespace client_app.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        public NavigationService NavigationService { get; }
+        private readonly INavigationService _navigationService;
 
-        public MainViewModel(NavigationService navigationService)
+        public MainViewModel(INavigationService navigationService)
         {
-            NavigationService = navigationService;
+            _navigationService = navigationService;
         }
+
+        public INavigationService NavigationService => _navigationService;
     }
 }

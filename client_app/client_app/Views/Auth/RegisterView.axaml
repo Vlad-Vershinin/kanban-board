@@ -3,7 +3,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="client_app.Views.Auth.RegisterView">
+             x:Class="client_app.Views.Auth.RegisterView"
+			 xmlns:vm="clr-namespace:client_app.ViewModels.Auth"
+			 x:DataType="vm:RegisterViewModel">
 	<Grid ColumnDefinitions="* * *">
 		<StackPanel Grid.Column="1"
 					VerticalAlignment="Center"
@@ -12,8 +14,7 @@
 			<TextBox Text=""
 					 Watermark="Login..."/>
 
-			<TextBlock Text="Password"
-					   Margin="0 20 0 0"/>
+			<TextBlock Text="Password"/>
 			<Grid ColumnDefinitions="* 30">
 				<TextBox Text=""
 						 HorizontalAlignment="Stretch"
@@ -24,10 +25,16 @@
 			</Grid>
 
 			<TextBlock Text="Repeat the password"/>
-				<TextBox Text=""
-						 HorizontalAlignment="Stretch"
-						 Watermark="Password..."/>
+			<TextBox Text=""
+						HorizontalAlignment="Stretch"
+						Watermark="Password..."/>
 
+			<DockPanel LastChildFill="False">
+				<Button DockPanel.Dock="Right"
+						Content="Go To Login"
+						Command="{Binding GoToLoginCommand}"/>
+			</DockPanel>
+			
 			<Button Content="Register"
 					HorizontalAlignment="Center"
 					Margin="0 5 0 0"/>

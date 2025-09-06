@@ -10,5 +10,6 @@
         Title="Kanban Board"
 		x:DataType="vm:MainViewModel">
 
+
 	<ContentControl Content="{Binding NavigationService.CurrentUserControl}"/>
 </Window>
