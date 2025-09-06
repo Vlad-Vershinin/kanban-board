@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Avalonia.Browser" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="ReactiveUI.Fody" />
     <PackageReference Include="ReactiveUI.SourceGenerators">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

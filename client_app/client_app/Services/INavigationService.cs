@@ -11,7 +11,7 @@ public interface INavigationService
 {
     void NavigateTo<T>() where T : UserControl;
     void NavigateTo(Type windowType);
-    //void GoBack();
+    void GoBack();
     bool CanGoBack { get; }
     UserControl CurrentUserControl { get; }
 }

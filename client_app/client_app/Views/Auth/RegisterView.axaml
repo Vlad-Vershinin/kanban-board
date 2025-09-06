@@ -19,15 +19,18 @@
 				<TextBox Text=""
 						 HorizontalAlignment="Stretch"
 						 Watermark="Password..."
-						 Margin="0 0 5 0"/>
+						 Margin="0 0 5 0"
+						 PasswordChar="{Binding PasswordSymbol}"/>
 				<Button Grid.Column="1"
-						Content="H"/>
+						Content="H"
+						Command="{Binding ChangePasswordVisibilityCommand}"/>
 			</Grid>
 
 			<TextBlock Text="Repeat the password"/>
 			<TextBox Text=""
 						HorizontalAlignment="Stretch"
-						Watermark="Password..."/>
+						Watermark="Password..."
+						PasswordChar="{Binding PasswordSymbol}"/>
 
 			<DockPanel LastChildFill="False">
 				<Button DockPanel.Dock="Right"

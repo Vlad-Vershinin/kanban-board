@@ -47,7 +47,6 @@ public class NavigationService : ReactiveObject, INavigationService
         this.RaisePropertyChanged(nameof(CurrentUserControl));
     }
 
-    // Добавим метод для возврата назад
     public void GoBack()
     {
         if (!CanGoBack)
