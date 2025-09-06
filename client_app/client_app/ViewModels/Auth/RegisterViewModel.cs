@@ -20,7 +20,5 @@ public class RegisterViewModel : ViewModelBase
         {
             _navigationService.NavigateTo<LoginView>();
         });
-
-        Debug.WriteLine("Create RegisterViewModel");
     }
 }
