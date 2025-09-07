@@ -11,12 +11,12 @@
 					VerticalAlignment="Center"
 					Spacing="5">
 			<TextBlock Text="Login"/>
-			<TextBox Text=""
+			<TextBox Text="{Binding Login}"
 					 Watermark="Login..."/>
 
 			<TextBlock Text="Password"/>
 			<Grid ColumnDefinitions="* 30">
-				<TextBox Text=""
+				<TextBox Text="{Binding Password}"
 						 HorizontalAlignment="Stretch"
 						 Watermark="Password..."
 						 Margin="0 0 5 0"
@@ -25,9 +25,13 @@
 						Content="H"
 						Command="{Binding ChangePasswordVisibilityCommand}"/>
 			</Grid>
-
+			<TextBlock Text="{Binding PasswordWarning}"
+					   HorizontalAlignment="Center"
+					   Foreground="Red"/>
+			
+			
 			<TextBlock Text="Repeat the password"/>
-			<TextBox Text=""
+			<TextBox Text="{Binding RepeatPassword}"
 						HorizontalAlignment="Stretch"
 						Watermark="Password..."
 						PasswordChar="{Binding PasswordSymbol}"/>
@@ -37,10 +41,17 @@
 						Content="Go To Login"
 						Command="{Binding GoToLoginCommand}"/>
 			</DockPanel>
+
+			<TextBlock Text="Passwords must match."
+					   IsVisible="{Binding IsPasswordsSimilar}"
+					   Foreground="Red"
+					   HorizontalAlignment="Center"/>
 			
 			<Button Content="Register"
 					HorizontalAlignment="Center"
-					Margin="0 5 0 0"/>
+					Margin="0 5 0 0"
+					Command="{Binding RegisterCommand}"
+					IsEnabled="{Binding IsRegisterButtonActivate}"/>
 		</StackPanel>
 	</Grid>
 
