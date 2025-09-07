@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client_app", "client_app\client_app\client_app.csproj", "{C2F0488E-0FBA-4948-BFB1-CD41B11C3557}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client_app.iOS", "client_app\client_app.iOS\client_app.iOS.csproj", "{D749E5CC-3525-44DA-8C43-7932F6E1E427}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client_app.Browser", "client_app\client_app.Browser\client_app.Browser.csproj", "{F3BDBB51-0C8C-4934-AA81-0C072CE63359}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server", "server\server.csproj", "{32C951DF-F578-4402-B9A6-AB8BDBE4B38E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{F3BDBB51-0C8C-4934-AA81-0C072CE63359}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3BDBB51-0C8C-4934-AA81-0C072CE63359}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3BDBB51-0C8C-4934-AA81-0C072CE63359}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C951DF-F578-4402-B9A6-AB8BDBE4B38E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C951DF-F578-4402-B9A6-AB8BDBE4B38E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C951DF-F578-4402-B9A6-AB8BDBE4B38E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C951DF-F578-4402-B9A6-AB8BDBE4B38E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

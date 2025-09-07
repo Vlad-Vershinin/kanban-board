@@ -2,6 +2,8 @@
 using client_app.Views.Auth;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Reactive;
 using System.Threading.Tasks;
 
@@ -9,6 +11,9 @@ namespace client_app.ViewModels.Auth;
 
 public class LoginViewModel : ViewModelBase
 {
+    private const string url = "http://localhost:7084/api";
+    private readonly HttpClient httpClient_ = new();
+
     [Reactive] public char PasswordSymbol { get; set; } = '•';
 
     [Reactive] public string Login { get; set; }
@@ -42,6 +47,19 @@ public class LoginViewModel : ViewModelBase
 
     private async Task LoginAsync()
     {
+        var response = await httpClient_.PostAsJsonAsync($"{url}/Auth/login", new
+        {
+            Login,
+            Password
+        });
 
+        if (response.IsSuccessStatusCode)
+        {
+            
+        }
+        else
+        {
+            AuthWarning = true;
+        }
     }
 }
