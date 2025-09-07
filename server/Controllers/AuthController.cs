@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using server.Models.Dto;
+using server.Services;
 using System.Diagnostics;
 
 namespace server.Controllers;
@@ -8,11 +9,23 @@ namespace server.Controllers;
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 {
+    private readonly IUserService _userService;
+
+    public AuthController(IUserService userService)
+    {
+        _userService = userService;
+    }
+
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto login)
     {
-        Console.WriteLine($"{login.Login}\n{login.Password}");
+        var isValid = await _userService.ValidateUserAsync(login.Login, login.Password);
 
-        return Ok();
+        if (isValid)
+        {
+            return Ok();
+        }
+
+        return Unauthorized();
     }
 }
