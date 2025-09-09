@@ -5,7 +5,6 @@ using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Reactive;
@@ -61,7 +60,6 @@ public class RegisterViewModel : ViewModelBase
         IsLoginEmpty = false;
         IsUserCreated = false;
 
-        // Проверяем пустой логин
         if (string.IsNullOrWhiteSpace(Login))
         {
             IsLoginEmpty = true;
@@ -69,21 +67,19 @@ public class RegisterViewModel : ViewModelBase
             return;
         }
 
-        // Проверяем пароли
         if (!CheckPassword() || !CheckPasswords())
         {
             IsRegisterButtonActivate = true;
             return;
         }
 
-        // Проверяем существование пользователя
         var checkResponse = await httpClient_.GetAsync($"{url}/auth/check?login={Uri.EscapeDataString(Login)}");
         if (checkResponse.IsSuccessStatusCode)
         {
             var content = await checkResponse.Content.ReadFromJsonAsync<CheckResponse>();
             if (content.exists)
             {
-                IsUserCreated = true; // Пользователь уже существует
+                IsUserCreated = true;
                 IsRegisterButtonActivate = true;
                 return;
             }

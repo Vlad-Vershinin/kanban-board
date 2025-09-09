@@ -1,49 +1,50 @@
-﻿using Microsoft.EntityFrameworkCore;
-using server.Data;
-using server.Models;
+﻿using server.Core.DTOs.Auth;
+using server.Core.Entities;
+using server.Core.Interfaces.Repositories;
+using server.Core.Interfaces.Services;
 
 namespace server.Services;
 
 public class UserService : IUserService
 {
-    private readonly DataContext _context;
+    private readonly IUserRepository _userRepository;
 
-    public UserService(DataContext context)
+    public UserService(IUserRepository userRepository)
     {
-        _context = context;
+        _userRepository = userRepository;
+    }
 
-        if (_context == null)
+    public async Task<bool> RegisterUserAsync(RegisterDto registerDto)
+    {
+        var existingUser = await _userRepository.GetUserByLoginAsync(registerDto.Login);
+        if (existingUser != null)
         {
-            throw new ArgumentNullException(nameof(context));
+            return false;
         }
+
+        var newUser = new User
+        {
+            Id = Guid.NewGuid(),
+            Login = registerDto.Login,
+            Password = registerDto.Password,
+            VisibleName = registerDto.Login
+        };
+
+        await _userRepository.CreateUserAsync(newUser);
+        return true;
     }
 
-    public async Task<User> GetUserByLoginAsync(string login)
+    public async Task<bool> IsUserExist(string login)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
+        var user = await _userRepository.GetUserByLoginAsync(login);
+
+        return user != null;
     }
 
-    public async Task<bool> ValidateUserAsync(string login, string password)
+    public async Task<bool> ValidateCredentialsAsync(string login, string password)
     {
-        var user = await GetUserByLoginAsync(login);
+        var user = await _userRepository.GetUserByLoginAsync(login);
 
-        return user != null && VerifyPassword(password, user.Password);
-    }
-
-    public async Task CreateUserAsync(User user)
-    {
-        user.Password = HashPassword(user.Password);
-        _context.Users.Add(user);
-        await _context.SaveChangesAsync();
-    }
-
-    private string HashPassword(string password)
-    {
-        return BCrypt.Net.BCrypt.HashPassword(password);
-    }
-
-    private bool VerifyPassword(string password, string hashPassword)
-    {
-        return BCrypt.Net.BCrypt.Verify(password, hashPassword);
+        return user != null && user.Password == password;
     }
 }

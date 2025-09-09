@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using server.Models;
-using server.Models.Dto;
-using server.Services;
+using server.Core.Interfaces.Services;
+using server.Core.DTOs.Auth;
 
 namespace server.Controllers;
 
@@ -19,49 +18,30 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto login)
     {
-        var isValid = await _userService.ValidateUserAsync(login.Login, login.Password);
-
-        if (isValid)
-        {
-            return Ok();
-        }
-
-        return Unauthorized();
+        var isValid = await _userService.ValidateCredentialsAsync(login.Login, login.Password);
+        return isValid ? Ok() : Unauthorized();
     }
 
     [HttpGet("check")]
     public async Task<IActionResult> СheckUser([FromQuery] string login)
     {
-        var user = await _userService.GetUserByLoginAsync(login);
+        var isUserExist = await _userService.IsUserExist(login);
 
-        return Ok(new { exists = user != null });
+        return Ok(new { exists = isUserExist });
     }
 
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto register)
     {
-        var existingUser = await _userService.GetUserByLoginAsync(register.Login);
+        var result = await _userService.RegisterUserAsync(register);
 
-        if (existingUser != null)
+        if (result)
         {
-            return Conflict(new { message = "User already exists" });
-        }
-
-        var newUser = new User();
-        newUser.Id = Guid.NewGuid();
-        newUser.Login = register.Login;
-        newUser.Password = register.Password;
-        newUser.VisibleName = register.Login;
-
-        try
-        {
-            await _userService.CreateUserAsync(newUser);
             return Ok(new { message = "User created successfully" });
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine($"Error creating user: {ex.Message}");
-            return StatusCode(500, new { message = "Internal server error" });
+            return Conflict(new { message = "User already exists" });
         }
     }
 }

@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using server.Data;
+using server.Core.Interfaces.Repositories;
+using server.Core.Interfaces.Services;
+using server.Infrastructure.Data;
+using server.Infrastructure.Repositories;
 using server.Services;
 using System;
 
@@ -13,9 +16,10 @@ namespace server
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            builder.Services.AddDbContext<DataContext>(options =>
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(connectionString));
 
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.AddControllers();
@@ -36,7 +40,7 @@ namespace server
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<DataContext>();
+                    var context = services.GetRequiredService<ApplicationDbContext>();
                     context.Database.Migrate();
                 }
                 catch (Exception ex)

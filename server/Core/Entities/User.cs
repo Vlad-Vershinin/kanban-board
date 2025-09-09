@@ -1,7 +1,6 @@
-﻿using server.Models.Dto;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace server.Models;
+namespace server.Core.Entities;
 
 public class User
 {

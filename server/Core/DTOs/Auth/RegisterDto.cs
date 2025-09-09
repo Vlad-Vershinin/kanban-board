@@ -1,6 +1,6 @@
-﻿namespace server.Models.Dto;
+﻿namespace server.Core.DTOs.Auth;
 
-public class LoginDto
+public class RegisterDto
 {
     public string Login { get; set; }
     public string Password { get; set; }
