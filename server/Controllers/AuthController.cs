@@ -9,10 +9,12 @@ namespace server.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly IPasswordService _passwordService;
 
-    public AuthController(IUserService userService)
+    public AuthController(IUserService userService, IPasswordService passwordService)
     {
         _userService = userService;
+        _passwordService = passwordService;
     }
 
     [HttpPost("login")]
@@ -33,6 +35,13 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto register)
     {
+        var passwordResult = _passwordService.CheckPassword(register.Password);
+
+        if (passwordResult != string.Empty)
+        {
+            return Unauthorized(new { mewssage = passwordResult });
+        }
+
         var result = await _userService.RegisterUserAsync(register);
 
         if (result)
