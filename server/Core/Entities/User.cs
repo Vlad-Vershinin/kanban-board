@@ -10,4 +10,6 @@ public class User
     public string Email { get; set; } = string.Empty;
     public string VisibleName { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public List<Board> Boards { get; set; }
 }

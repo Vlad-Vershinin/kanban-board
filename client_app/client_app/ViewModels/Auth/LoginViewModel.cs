@@ -1,5 +1,6 @@
 ﻿using client_app.Services;
 using client_app.Views.Auth;
+using client_app.Views.Pages;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System.Net.Http;
@@ -55,7 +56,7 @@ public class LoginViewModel : ViewModelBase
 
         if (response.IsSuccessStatusCode)
         {
-            
+            _navigationService.NavigateTo<MainPageView>();
         }
         else
         {

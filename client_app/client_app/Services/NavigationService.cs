@@ -1,6 +1,4 @@
 ﻿using Avalonia.Controls;
-using client_app.ViewModels.Auth;
-using client_app.Views.Auth;
 using ReactiveUI;
 using ReactiveUI.SourceGenerators;
 using System.Collections.Generic;

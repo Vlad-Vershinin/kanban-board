@@ -1,4 +1,5 @@
-﻿using client_app.Services;
+﻿using client_app.Models.Responses;
+using client_app.Services;
 using client_app.Views.Auth;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -77,7 +78,7 @@ public class RegisterViewModel : ViewModelBase
         if (checkResponse.IsSuccessStatusCode)
         {
             var content = await checkResponse.Content.ReadFromJsonAsync<CheckResponse>();
-            if (content.exists)
+            if (content.Exists)
             {
                 IsUserCreated = true;
                 IsRegisterButtonActivate = true;
@@ -152,9 +153,4 @@ public class RegisterViewModel : ViewModelBase
             return true;
         }
     }
-}
-
-public class CheckResponse
-{
-    public bool exists { get; set; }
 }

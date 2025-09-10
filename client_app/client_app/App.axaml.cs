@@ -4,8 +4,10 @@ using Avalonia.Markup.Xaml;
 using client_app.Services;
 using client_app.ViewModels;
 using client_app.ViewModels.Auth;
+using client_app.ViewModels.Pages;
 using client_app.Views;
 using client_app.Views.Auth;
+using client_app.Views.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 
@@ -30,11 +32,13 @@ public partial class App : Application
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<LoginViewModel>();
         services.AddSingleton<RegisterViewModel>();
+        services.AddSingleton<MainPageViewModel>();
 
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainView>();
         services.AddSingleton<LoginView>();
         services.AddSingleton<RegisterView>();
+        services.AddSingleton<MainPageView>();
 
         _serviceProvider = services.BuildServiceProvider();
         ServiceProvider = _serviceProvider;
