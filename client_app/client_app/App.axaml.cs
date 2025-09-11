@@ -33,12 +33,14 @@ public partial class App : Application
         services.AddSingleton<LoginViewModel>();
         services.AddSingleton<RegisterViewModel>();
         services.AddSingleton<MainPageViewModel>();
+        services.AddTransient<CreateBoardViewModel>();
 
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainView>();
         services.AddSingleton<LoginView>();
         services.AddSingleton<RegisterView>();
         services.AddSingleton<MainPageView>();
+        services.AddTransient<CreateBoardView>();
 
         _serviceProvider = services.BuildServiceProvider();
         ServiceProvider = _serviceProvider;

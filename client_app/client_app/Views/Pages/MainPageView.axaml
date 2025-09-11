@@ -18,6 +18,13 @@
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 		</ListBox>
+		
+		<Button Content="+"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom"
+				Margin="10"
+				CornerRadius="10"
+				Command="{Binding CreateBoardCommand}"/>
 	</Grid>
 	
 </UserControl>
