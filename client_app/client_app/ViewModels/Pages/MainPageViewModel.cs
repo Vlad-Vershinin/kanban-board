@@ -27,7 +27,8 @@ public class MainPageViewModel : ViewModelBase
 
     private async Task CreateBoard()
     {
-        await App.ServiceProvider.GetService<CreateBoardView>().ShowDialog(App.ServiceProvider.GetService<MainWindow>());
+        await App.ServiceProvider.GetService<CreateBoardView>()
+            .ShowDialog(App.ServiceProvider.GetService<MainWindow>());
     }
 
 }

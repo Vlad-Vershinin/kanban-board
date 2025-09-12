@@ -40,7 +40,7 @@ public partial class App : Application
         services.AddSingleton<LoginView>();
         services.AddSingleton<RegisterView>();
         services.AddSingleton<MainPageView>();
-        services.AddTransient<CreateBoardView>();
+        services.AddSingleton<CreateBoardView>();
 
         _serviceProvider = services.BuildServiceProvider();
         ServiceProvider = _serviceProvider;

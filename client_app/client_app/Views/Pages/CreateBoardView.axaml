@@ -9,5 +9,38 @@
 		x:DataType="vm:CreateBoardViewModel"
 		WindowStartupLocation="CenterOwner"
 		Height="350"
-		Width="400">
+		Width="400"
+		ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="-1">
+
+	<Grid ColumnDefinitions="* 2* *">
+		<Button Grid.Column="2"
+				Content="X"
+                Width="30"
+                Height="30"
+                HorizontalAlignment="Right"
+				VerticalAlignment="Top"
+                Background="Transparent"
+                Foreground="White"
+                BorderThickness="0"
+                Command="{Binding CloseCommand}"
+                Cursor="Hand"/>
+		
+		<StackPanel Grid.Column="1" VerticalAlignment="Center">
+			<TextBlock Text="Enter the name of the board"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"/>
+			<TextBox Watermark="Enter name..."
+					 HorizontalAlignment="Stretch"
+					 VerticalAlignment="Center"
+					 Margin="5 5 5 0"/>
+
+			<Button Content="Create"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Margin="5"/>
+		</StackPanel>
+	</Grid>
+		
 </Window>
