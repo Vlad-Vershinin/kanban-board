@@ -31,15 +31,22 @@
 			<TextBlock Text="Enter the name of the board"
 					   HorizontalAlignment="Center"
 					   VerticalAlignment="Center"/>
-			<TextBox Watermark="Enter name..."
+			<TextBox Text="{Binding Name}"
+					 Watermark="Enter name..."
 					 HorizontalAlignment="Stretch"
 					 VerticalAlignment="Center"
 					 Margin="5 5 5 0"/>
 
+			<TextBlock Text="{Binding NameWarnigs}"
+					   HorizontalAlignment="Center"
+					   VerticalAlignment="Center"
+					   Foreground="Red"/>
+			
 			<Button Content="Create"
 					HorizontalAlignment="Center"
 					VerticalAlignment="Center"
-					Margin="5"/>
+					Margin="5"
+					Command="{Binding CreateBoardCommand}"/>
 		</StackPanel>
 	</Grid>
 		
