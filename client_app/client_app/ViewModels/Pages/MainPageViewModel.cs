@@ -1,9 +1,9 @@
 ﻿using client_app.Models;
+using client_app.Services;
 using client_app.Views;
 using client_app.Views.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
-using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
 
@@ -11,7 +11,7 @@ namespace client_app.ViewModels.Pages;
 
 public class MainPageViewModel : ViewModelBase
 {
-    public ObservableCollection<Board> Boards { get; set; }
+    public readonly BoardService _boardService;
 
     public Board SelectedBorad { get; set; }
 
@@ -20,7 +20,7 @@ public class MainPageViewModel : ViewModelBase
 
     public MainPageViewModel()
     {
-        Boards = new ObservableCollection<Board>();
+        _boardService = App.ServiceProvider.GetService<BoardService>();
 
         CreateBoardCommand = ReactiveCommand.CreateFromTask(CreateBoard);
     }

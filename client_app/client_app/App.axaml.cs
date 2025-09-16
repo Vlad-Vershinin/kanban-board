@@ -42,6 +42,8 @@ public partial class App : Application
         services.AddSingleton<MainPageView>();
         services.AddSingleton<CreateBoardView>();
 
+        services.AddSingleton<BoardService>();
+
         _serviceProvider = services.BuildServiceProvider();
         ServiceProvider = _serviceProvider;
 

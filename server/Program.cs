@@ -19,8 +19,10 @@ public class Program
             options.UseNpgsql(connectionString));
 
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IBoardRepository, BoardRepository>();
         builder.Services.AddScoped<IPasswordService, PasswordService>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<IBoardService, BoardService>();
 
         builder.Services.AddControllers();
         builder.Services.AddCors(options =>

@@ -47,4 +47,9 @@ public class UserRepository : IUserRepository
     {
         return BCrypt.Net.BCrypt.Verify(password, hashPassword);
     }
+
+    public async Task<User> GetUserByIdAsync(Guid id)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+    }
 }

@@ -1,7 +1,10 @@
-﻿using client_app.Views.Pages;
+﻿using client_app.Models;
+using client_app.Services;
+using client_app.Views.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Reactive;
@@ -13,6 +16,7 @@ public class CreateBoardViewModel : ViewModelBase
 {
     private const string url = "http://localhost:7084/api";
     private readonly HttpClient httpClient_ = new();
+    private readonly BoardService _boardService;
 
     [Reactive] public string Name { get; set; } = string.Empty;
     
@@ -23,6 +27,8 @@ public class CreateBoardViewModel : ViewModelBase
 
     public CreateBoardViewModel()
     {
+        _boardService = App.ServiceProvider.GetService<BoardService>();
+
         CloseCommand = ReactiveCommand.CreateFromTask(Close);
         CreateBoardCommand = ReactiveCommand.CreateFromTask(CreateBoard);
     }
@@ -42,10 +48,14 @@ public class CreateBoardViewModel : ViewModelBase
             return;
         }
 
-        var response = await httpClient_.PostAsJsonAsync($"{url}/board/create", new { Name });
+        var response = await httpClient_.PostAsJsonAsync($"{url}/board/create", new { CreatorId = Guid.NewGuid(), Name });
 
         if (response.IsSuccessStatusCode)
         {
+            var newBoard = new Board();
+            newBoard.Name = Name;
+
+            _boardService.AddBoard(newBoard);
             await Close();
         }
         else
