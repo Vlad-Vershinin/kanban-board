@@ -11,7 +11,8 @@ namespace client_app.ViewModels.Pages;
 
 public class MainPageViewModel : ViewModelBase
 {
-    public readonly BoardService _boardService;
+    private readonly BoardService _boardService;
+    public BoardService BoardService { get { return _boardService; } }
 
     public Board SelectedBorad { get; set; }
 

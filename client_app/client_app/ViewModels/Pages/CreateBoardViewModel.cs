@@ -4,7 +4,6 @@ using client_app.Views.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Reactive;
@@ -29,11 +28,11 @@ public class CreateBoardViewModel : ViewModelBase
     {
         _boardService = App.ServiceProvider.GetService<BoardService>();
 
-        CloseCommand = ReactiveCommand.CreateFromTask(Close);
+        CloseCommand = ReactiveCommand.Create(Close);
         CreateBoardCommand = ReactiveCommand.CreateFromTask(CreateBoard);
     }
 
-    private async Task Close()
+    private void Close()
     {
         var window = App.ServiceProvider.GetService<CreateBoardView>();
         window.Close();
@@ -48,7 +47,9 @@ public class CreateBoardViewModel : ViewModelBase
             return;
         }
 
-        var response = await httpClient_.PostAsJsonAsync($"{url}/board/create", new { CreatorId = Guid.NewGuid(), Name });
+        var userId = App.ServiceProvider.GetService<UserService>(); 
+
+        var response = await httpClient_.PostAsJsonAsync($"{url}/board/create", new { userId, Name });
 
         if (response.IsSuccessStatusCode)
         {
@@ -56,7 +57,7 @@ public class CreateBoardViewModel : ViewModelBase
             newBoard.Name = Name;
 
             _boardService.AddBoard(newBoard);
-            await Close();
+            Close();
         }
         else
         {

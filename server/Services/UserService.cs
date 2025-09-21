@@ -48,6 +48,11 @@ public class UserService : IUserService
         return user != null && VerifyPassword(password, user.Password);
     }
 
+    public async Task<User> GetUserByLoginAsync(string login)
+    {
+        return await _userRepository.GetUserByLoginAsync(login);
+    }
+
     private bool VerifyPassword(string password, string hashPassword)
     {
         return BCrypt.Net.BCrypt.Verify(password, hashPassword);

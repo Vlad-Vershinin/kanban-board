@@ -21,7 +21,13 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Login([FromBody] LoginDto login)
     {
         var isValid = await _userService.ValidateCredentialsAsync(login.Login, login.Password);
-        return isValid ? Ok() : Unauthorized();
+        if (isValid)
+        {
+            var user = await _userService.GetUserByLoginAsync(login.Login);
+            return Ok(user);
+        }
+
+        return Unauthorized();
     }
 
     [HttpGet("check")]

@@ -9,7 +9,7 @@
 
 	<Grid ColumnDefinitions="0.4* *">
 		<ListBox SelectionMode="Single"
-				 ItemsSource="{Binding _boardService.Boards}">
+				 ItemsSource="{Binding BoardService.Boards}">
 			<ListBox.ItemTemplate>
 				<DataTemplate>
 					<StackPanel>

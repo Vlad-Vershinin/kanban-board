@@ -28,6 +28,7 @@ public partial class App : Application
         var services = new ServiceCollection();
 
         services.AddSingleton<INavigationService, NavigationService>();
+        services.AddSingleton<IUserService, UserService>();
 
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<LoginViewModel>();

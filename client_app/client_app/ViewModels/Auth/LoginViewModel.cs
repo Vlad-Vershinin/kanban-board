@@ -1,8 +1,10 @@
-﻿using client_app.Services;
+﻿using client_app.Models.Responses;
+using client_app.Services;
 using client_app.Views.Auth;
 using client_app.Views.Pages;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using server.Models;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Reactive;
@@ -24,13 +26,15 @@ public class LoginViewModel : ViewModelBase
 
 
     private readonly INavigationService _navigationService;
+    private readonly IUserService _userService;
     public ReactiveCommand<Unit, Unit> GoToRegisteCommand { get; }
     public ReactiveCommand<Unit, Unit> ChangePasswordVisibilityCommand { get; }
     public ReactiveCommand<Unit, Unit> LoginCommand { get; }
 
-    public LoginViewModel(INavigationService navigationService)
+    public LoginViewModel(INavigationService navigationService, IUserService userService)
     {
         _navigationService = navigationService;
+        _userService = userService;
 
         GoToRegisteCommand = ReactiveCommand.Create(() =>
         {
@@ -56,6 +60,20 @@ public class LoginViewModel : ViewModelBase
 
         if (response.IsSuccessStatusCode)
         {
+            var content = await response.Content.ReadFromJsonAsync<UserResponse>();
+
+            var user = new User
+            {
+                Id = content.Id,
+                Login = content.Login,
+                Password = content.Password,
+                Email = content.Email,
+                VisibleName = content.VisibleName,
+                CreatedAt = content.CreatedAt
+            };
+
+            _userService.SetUser(user);
+
             _navigationService.NavigateTo<MainPageView>();
         }
         else
