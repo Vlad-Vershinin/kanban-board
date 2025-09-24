@@ -13,9 +13,8 @@ namespace client_app.ViewModels.Pages;
 
 public class CreateBoardViewModel : ViewModelBase
 {
-    private const string url = "http://localhost:7084/api";
-    private readonly HttpClient httpClient_ = new();
     private readonly BoardService _boardService;
+    private readonly IHttpClientService _httpClientService;
 
     [Reactive] public string Name { get; set; } = string.Empty;
     
@@ -24,8 +23,10 @@ public class CreateBoardViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> CloseCommand { get; set; }
     public ReactiveCommand<Unit, Unit> CreateBoardCommand { get; set; }
 
-    public CreateBoardViewModel()
+    public CreateBoardViewModel(IHttpClientService httpClientService)
     {
+        _httpClientService = httpClientService;
+
         _boardService = App.ServiceProvider.GetService<BoardService>();
 
         CloseCommand = ReactiveCommand.Create(Close);
@@ -49,7 +50,7 @@ public class CreateBoardViewModel : ViewModelBase
 
         var userId = App.ServiceProvider.GetService<UserService>(); 
 
-        var response = await httpClient_.PostAsJsonAsync($"{url}/board/create", new { userId, Name });
+        var response = await _httpClientService.PostAsJsonAsync($"board/create", new { userId, Name });
 
         if (response.IsSuccessStatusCode)
         {

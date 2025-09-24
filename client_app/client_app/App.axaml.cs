@@ -29,6 +29,7 @@ public partial class App : Application
 
         services.AddSingleton<INavigationService, NavigationService>();
         services.AddSingleton<IUserService, UserService>();
+        services.AddSingleton<IHttpClientService, HttpClientService>();
 
         services.AddSingleton<MainViewModel>();
         services.AddSingleton<LoginViewModel>();
@@ -51,7 +52,6 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             var mainWindow = _serviceProvider.GetService<MainWindow>();
-
             var mainViewModel = _serviceProvider.GetService<MainViewModel>();
 
             mainWindow.DataContext = mainViewModel;

@@ -16,9 +16,6 @@ namespace client_app.ViewModels.Auth;
 
 public class RegisterViewModel : ViewModelBase
 {
-    private const string url = "http://localhost:7084/api";
-    private readonly HttpClient httpClient_ = new();
-
     [Reactive] public char PasswordSymbol { get; set; } = '•';
 
     [Reactive] public string Login { get; set; }
@@ -32,13 +29,16 @@ public class RegisterViewModel : ViewModelBase
     [Reactive] public bool IsUserCreated { get; set; } = false;
 
     private readonly INavigationService _navigationService;
+    private readonly IHttpClientService _httpClientService;
+
     public ReactiveCommand<Unit, Unit> GoToLoginCommand { get; }
     public ReactiveCommand<Unit, Unit> ChangePasswordVisibilityCommand { get; }
     public ReactiveCommand<Unit, Unit> RegisterCommand { get; }
 
-    public RegisterViewModel(INavigationService navigationService)
+    public RegisterViewModel(INavigationService navigationService, IHttpClientService httpClientService)
     {
         _navigationService = navigationService;
+        _httpClientService = httpClientService;
 
         GoToLoginCommand = ReactiveCommand.Create(() =>
         {
@@ -46,7 +46,6 @@ public class RegisterViewModel : ViewModelBase
         });
         ChangePasswordVisibilityCommand = ReactiveCommand.Create(ChangePasswordVisibility);
         RegisterCommand = ReactiveCommand.CreateFromTask(Register);
-
     }
 
     private void ChangePasswordVisibility()
@@ -74,7 +73,7 @@ public class RegisterViewModel : ViewModelBase
             return;
         }
 
-        var checkResponse = await httpClient_.GetAsync($"{url}/auth/check?login={Uri.EscapeDataString(Login)}");
+        var checkResponse = await _httpClientService.GetAsync($"auth/check?login={Uri.EscapeDataString(Login)}");
         if (checkResponse.IsSuccessStatusCode)
         {
             var content = await checkResponse.Content.ReadFromJsonAsync<CheckResponse>();
@@ -86,7 +85,7 @@ public class RegisterViewModel : ViewModelBase
             }
         }
 
-        var response = await httpClient_.PostAsJsonAsync($"{url}/auth/register", new
+        var response = await _httpClientService.PostAsJsonAsync($"auth/register", new
         {
             Login,
             Password

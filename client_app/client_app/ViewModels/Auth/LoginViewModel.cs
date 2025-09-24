@@ -14,9 +14,6 @@ namespace client_app.ViewModels.Auth;
 
 public class LoginViewModel : ViewModelBase
 {
-    private const string url = "http://localhost:7084/api";
-    private readonly HttpClient httpClient_ = new();
-
     [Reactive] public char PasswordSymbol { get; set; } = '•';
 
     [Reactive] public string Login { get; set; }
@@ -27,14 +24,17 @@ public class LoginViewModel : ViewModelBase
 
     private readonly INavigationService _navigationService;
     private readonly IUserService _userService;
+    private readonly IHttpClientService _httpClientService;
+
     public ReactiveCommand<Unit, Unit> GoToRegisteCommand { get; }
     public ReactiveCommand<Unit, Unit> ChangePasswordVisibilityCommand { get; }
     public ReactiveCommand<Unit, Unit> LoginCommand { get; }
 
-    public LoginViewModel(INavigationService navigationService, IUserService userService)
+    public LoginViewModel(INavigationService navigationService, IUserService userService, IHttpClientService httpClientService)
     {
         _navigationService = navigationService;
         _userService = userService;
+        _httpClientService = httpClientService;
 
         GoToRegisteCommand = ReactiveCommand.Create(() =>
         {
@@ -52,7 +52,7 @@ public class LoginViewModel : ViewModelBase
 
     private async Task LoginAsync()
     {
-        var response = await httpClient_.PostAsJsonAsync($"{url}/Auth/login", new
+        var response = await _httpClientService.PostAsJsonAsync($"auth/login", new
         {
             Login,
             Password
