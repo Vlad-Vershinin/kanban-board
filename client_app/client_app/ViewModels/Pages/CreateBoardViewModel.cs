@@ -30,12 +30,6 @@ public class CreateBoardViewModel : ViewModelBase
 
         CloseCommand = ReactiveCommand.Create(Close);
         CreateBoardCommand = ReactiveCommand.CreateFromTask(CreateBoard);
-
-        LoadBoards();
-    }
-
-    private void LoadBoards()
-    {
     }
 
     private void Close()
@@ -53,9 +47,9 @@ public class CreateBoardViewModel : ViewModelBase
             return;
         }
 
-        var userId = App.ServiceProvider.GetService<UserService>(); 
+        var user = App.ServiceProvider.GetService<IUserService>(); 
 
-        var response = await _httpClientService.PostAsJsonAsync($"board/create", new { userId, Name });
+        var response = await _httpClientService.PostAsJsonAsync($"board/create", new { CreatorId = user.User.Id, Name });
 
         if (response.IsSuccessStatusCode)
         {

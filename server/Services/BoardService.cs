@@ -2,6 +2,7 @@
 using server.Core.Entities;
 using server.Core.Interfaces.Repositories;
 using server.Core.Interfaces.Services;
+using System.Diagnostics;
 
 namespace server.Services;
 
@@ -23,6 +24,8 @@ public class BoardService : IBoardService
 
     public async Task<bool> CreateBoard(CreateBoardDto board)
     {
+        Debug.WriteLine(board.CreatorId);
+
         var user = _userRepository.GetUserByIdAsync(board.CreatorId);
 
         if (user == null || string.IsNullOrEmpty(board.Name))
