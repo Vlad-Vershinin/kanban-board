@@ -11,5 +11,6 @@ public class User
     public string VisibleName { get; set; }
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public List<Board> Boards { get; set; }
+    public List<UserBoards> UserBoards { get; set; } = [];
+    public List<Board> Boards => UserBoards.Select(ub => ub.Board).ToList();
 }

@@ -1,11 +1,10 @@
 ﻿using client_app.Models;
+using client_app.Models.Responses;
 using client_app.Services;
 using client_app.Views.Pages;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Reactive;
 using System.Threading.Tasks;
 
@@ -31,6 +30,12 @@ public class CreateBoardViewModel : ViewModelBase
 
         CloseCommand = ReactiveCommand.Create(Close);
         CreateBoardCommand = ReactiveCommand.CreateFromTask(CreateBoard);
+
+        LoadBoards();
+    }
+
+    private void LoadBoards()
+    {
     }
 
     private void Close()

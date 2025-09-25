@@ -6,4 +6,5 @@ public interface IBoardRepository
 {
     Task<Board> GetBoardByIdAsync(Guid id);
     Task CreateBoardAsync(Board board);
+    Task<List<Board>> GetBoardsByIdAsync(Guid id);
 }

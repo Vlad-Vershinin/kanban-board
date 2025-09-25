@@ -26,4 +26,12 @@ public class BoardController : ControllerBase
         }
         return BadRequest();
     }
+
+    [HttpGet("load")]
+    public async Task<IActionResult> Load([FromQuery] string id)
+    {
+        
+
+        return Ok();
+    }
 }

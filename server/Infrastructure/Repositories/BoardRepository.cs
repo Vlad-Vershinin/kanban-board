@@ -25,5 +25,8 @@ public class BoardRepository : IBoardRepository
         await _context.SaveChangesAsync();
     }
 
-    
+    public async Task<List<Board>> GetBoardsByIdAsync(Guid id)
+    {
+        return await _context.Boards.Where();
+    }
 }
