@@ -28,10 +28,10 @@ public class BoardController : ControllerBase
     }
 
     [HttpGet("load")]
-    public async Task<IActionResult> Load([FromQuery] string id)
+    public async Task<IActionResult> Load([FromQuery] Guid id)
     {
-        
+        var boardsList = await _boardService.GetBoardsByIdAsync(id);
 
-        return Ok();
+        return Ok(boardsList);
     }
 }
