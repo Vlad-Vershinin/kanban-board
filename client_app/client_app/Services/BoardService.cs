@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-
 namespace client_app.Services;
 
 public class BoardService(IHttpClientService httpClientService, IUserService userService)
@@ -15,11 +14,6 @@ public class BoardService(IHttpClientService httpClientService, IUserService use
     private readonly IUserService _userService = userService;
 
     public ObservableCollection<Board> Boards { get; set; } = new ObservableCollection<Board>();
-
-    public void AddBoard(Board board)
-    {
-        Boards.Add(board);
-    }
 
     public async Task LoadBoardsFromApi()
     {

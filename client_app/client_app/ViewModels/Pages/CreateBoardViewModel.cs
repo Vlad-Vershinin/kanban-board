@@ -56,7 +56,7 @@ public class CreateBoardViewModel : ViewModelBase
             var newBoard = new Board();
             newBoard.Name = Name;
 
-            _boardService.AddBoard(newBoard);
+            _boardService.Boards.Add(newBoard);
             Close();
         }
         else
