@@ -22,6 +22,8 @@ public class MainPageViewModel : ViewModelBase
     public MainPageViewModel()
     {
         _boardService = App.ServiceProvider.GetService<BoardService>();
+        _boardService.LoadBoardsFromApi();
+
 
         CreateBoardCommand = ReactiveCommand.CreateFromTask(CreateBoard);
     }
