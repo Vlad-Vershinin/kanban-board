@@ -5,12 +5,12 @@ namespace server.Core.Entities;
 public class User
 {
     [Required] public Guid Id { get; set; }
-    [Required] public string Login { get; set; }
-    [Required] public string Password { get; set; }
+    [Required] public string Login { get; set; } = string.Empty;
+    [Required] public string Password { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public string VisibleName { get; set; }
+    public string VisibleName { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    public List<UserBoards> UserBoards { get; set; } = [];
-    public List<Board> Boards => UserBoards.Select(ub => ub.Board).ToList();
+    public List<Board> CreatedBoards { get; set; } = [];
+    public List<Board> Boards { get; set; } = [];
 }

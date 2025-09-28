@@ -30,7 +30,5 @@ public class BoardService(IHttpClientService httpClientService, IUserService use
                 Boards.Add(board);
             }
         }
-
-
     }
 }

@@ -23,7 +23,6 @@ public class Program
         builder.Services.AddScoped<IPasswordService, PasswordService>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IBoardService, BoardService>();
-        builder.Services.AddScoped<IUserBoardsRepository, UserBoardsRepository>();
 
         builder.Services.AddControllers();
         builder.Services.AddCors(options =>

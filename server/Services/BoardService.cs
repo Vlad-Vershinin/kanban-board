@@ -11,13 +11,11 @@ public class BoardService : IBoardService
 {
     private readonly IBoardRepository _boardRepository;
     private readonly IUserRepository _userRepository;
-    private readonly IUserBoardsRepository _userBoardsRepository;
 
-    public BoardService(IBoardRepository boardRepository, IUserRepository userRepository, IUserBoardsRepository userBoardsRepository)
+    public BoardService(IBoardRepository boardRepository, IUserRepository userRepository)
     {
         _boardRepository = boardRepository;
         _userRepository = userRepository;
-        _userBoardsRepository = userBoardsRepository;
     }
 
     public async Task<Board> GetBoard(Guid id)
@@ -44,14 +42,6 @@ public class BoardService : IBoardService
 
         await _boardRepository.CreateBoardAsync(newBoard);
 
-        var userBoard = new UserBoards
-        {
-            UserId = board.CreatorId,
-            BoardId = newBoard.Id
-        };
-
-        await _userBoardsRepository.AddUserToBoardAsync(userBoard);
-
         return true;
     }
 
@@ -64,16 +54,8 @@ public class BoardService : IBoardService
             return new List<BoardDto>();
         }
 
-        var boardsList = await _userBoardsRepository.GetUserBoardsAsync(id);
+        // FIX IT
 
-        var boards = boardsList.Select(ub => new BoardDto
-        {
-            Id = ub.Board.Id,
-            Name = ub.Board.Name,
-            Description = ub.Board.Description,
-            CreatorId = ub.Board.CreatorId
-        }).ToList();
-
-        return boards;
+        return new List<BoardDto>();
     }
 }
