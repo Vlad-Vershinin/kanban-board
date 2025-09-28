@@ -15,8 +15,8 @@ namespace client_app;
 
 public partial class App : Application
 {
-    private IServiceProvider _serviceProvider;
-    public static IServiceProvider ServiceProvider { get; private set; }
+    private IServiceProvider? _serviceProvider;
+    public static IServiceProvider? ServiceProvider { get; private set; }
 
     public override void Initialize()
     {
@@ -58,7 +58,7 @@ public partial class App : Application
             desktop.MainWindow = mainWindow;
 
             var navigationService = _serviceProvider.GetService<INavigationService>();
-            navigationService.NavigateTo<LoginView>();
+            navigationService?.NavigateTo<LoginView>();
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
@@ -69,7 +69,7 @@ public partial class App : Application
             singleViewPlatform.MainView = mainView;
 
             var navigationService = _serviceProvider.GetService<INavigationService>();
-            navigationService.NavigateTo<LoginView>();
+            navigationService?.NavigateTo<LoginView>();
         }
 
         base.OnFrameworkInitializationCompleted();

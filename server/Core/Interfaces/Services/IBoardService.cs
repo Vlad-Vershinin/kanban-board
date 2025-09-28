@@ -7,5 +7,5 @@ public interface IBoardService
 {
     Task<Board> GetBoard(Guid id);
     Task<bool> CreateBoard(CreateBoardDto board);
-    Task<List<BoardDto>> GetBoardsByIdAsync(Guid id);
+    Task<List<Board>> GetBoardsByUserIdAsync(Guid id);
 }

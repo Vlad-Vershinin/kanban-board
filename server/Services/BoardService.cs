@@ -2,7 +2,6 @@
 using server.Core.Entities;
 using server.Core.Interfaces.Repositories;
 using server.Core.Interfaces.Services;
-using server.Infrastructure.Repositories;
 using System.Diagnostics;
 
 namespace server.Services;
@@ -23,39 +22,43 @@ public class BoardService : IBoardService
         return await _boardRepository.GetBoardByIdAsync(id);
     }
 
-    public async Task<bool> CreateBoard(CreateBoardDto board)
+    public async Task<bool> CreateBoard(CreateBoardDto boardDto)
     {
-        Debug.WriteLine(board.CreatorId);
+        try
+        {
+            var board = new Board
+            {
+                Id = Guid.NewGuid(),
+                Name = boardDto.Name,
+                CreatorId = boardDto.CreatorId,
+            };
 
-        var user = await _userRepository.GetUserByIdAsync(board.CreatorId);
+            var creator = await _userRepository.GetUserByIdAsync(boardDto.CreatorId);
+            if (creator != null)
+            {
+                board.Users = new List<User> { creator };
+            }
 
-        if (user == null || string.IsNullOrEmpty(board.Name))
+            await _boardRepository.CreateBoardAsync(board);
+            return true;
+        }
+        catch (Exception)
         {
             return false;
         }
-
-        var newBoard = new Board();
-        newBoard.Id = Guid.NewGuid();
-        newBoard.Name = board.Name;
-        newBoard.Description = string.Empty;
-        newBoard.CreatorId = board.CreatorId;
-
-        await _boardRepository.CreateBoardAsync(newBoard);
-
-        return true;
     }
 
-    public async Task<List<BoardDto>> GetBoardsByIdAsync(Guid id)
+    public async Task<List<Board>> GetBoardsByUserIdAsync(Guid id)
     {
         var user = await _userRepository.GetUserByIdAsync(id);
 
         if (user == null)
         {
-            return new List<BoardDto>();
+            return new List<Board>();
         }
 
-        // FIX IT
+        var boards = await _boardRepository.GetBoardsByUserIdAsync(user.Id);
 
-        return new List<BoardDto>();
+        return boards;
     }
 }

@@ -4,6 +4,7 @@ using server.Core.Interfaces.Services;
 using server.Infrastructure.Data;
 using server.Infrastructure.Repositories;
 using server.Services;
+using System.Text.Json.Serialization;
 
 namespace server;
 
@@ -24,7 +25,11 @@ public class Program
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IBoardService, BoardService>();
 
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            });
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("AllowAll", policy =>

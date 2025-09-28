@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace server.Core.Entities;
 
@@ -8,6 +9,7 @@ public class Column
     [Required] public string Name { get; set; } = string.Empty;
     [Required] public Guid BoardId { get; set; }
 
+    [JsonIgnore]
     public Board? Board { get; set; }
     public List<Card> Cards { get; set; } = [];
 }

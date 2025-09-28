@@ -2,6 +2,7 @@
 using server.Core.Entities;
 using server.Core.Interfaces.Repositories;
 using server.Infrastructure.Data;
+using System.Diagnostics;
 
 namespace server.Infrastructure.Repositories;
 
@@ -14,7 +15,7 @@ public class BoardRepository : IBoardRepository
         _context = context;
     }
 
-    public async Task<Board> GetBoardByIdAsync(Guid id)
+    public async Task<Board?> GetBoardByIdAsync(Guid id)
     {
         return await _context.Boards.FirstOrDefaultAsync(b => b.Id == id);
     }
@@ -25,8 +26,18 @@ public class BoardRepository : IBoardRepository
         await _context.SaveChangesAsync();
     }
 
-    public Task<List<Board>> GetBoardsByIdAsync(Guid id)
+    public async Task<List<Board>> GetBoardsByUserIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var boards = await _context.Boards
+                        .Where(b => b.Users.Any(u => u.Id == id))
+                        .Include(b => b.Creator)
+                        .Include(b => b.Users)
+                        .Include(b => b.Columns)
+                            .ThenInclude(c => c.Cards)
+                        .AsSplitQuery()
+                        .ToListAsync();
+        
+        Debug.WriteLine(boards.Count);
+        return boards;
     }
 }

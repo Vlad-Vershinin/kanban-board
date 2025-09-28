@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace server.Core.Entities;
 
@@ -11,6 +12,8 @@ public class User
     public string VisibleName { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    [JsonIgnore]
     public List<Board> CreatedBoards { get; set; } = [];
+    [JsonIgnore]
     public List<Board> Boards { get; set; } = [];
 }
