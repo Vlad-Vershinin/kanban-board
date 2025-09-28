@@ -19,7 +19,7 @@ public class UserRepository : IUserRepository
         }
     }
 
-    public async Task<User> GetUserByLoginAsync(string login)
+    public async Task<User?> GetUserByLoginAsync(string login)
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Login == login);
     }
@@ -48,7 +48,7 @@ public class UserRepository : IUserRepository
         return BCrypt.Net.BCrypt.Verify(password, hashPassword);
     }
 
-    public async Task<User> GetUserByIdAsync(Guid id)
+    public async Task<User?> GetUserByIdAsync(Guid id)
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
     }

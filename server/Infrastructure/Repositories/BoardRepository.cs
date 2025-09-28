@@ -35,9 +35,9 @@ public class BoardRepository : IBoardRepository
                         .Include(b => b.Columns)
                             .ThenInclude(c => c.Cards)
                         .AsSplitQuery()
+                        .AsNoTracking()
                         .ToListAsync();
         
-        Debug.WriteLine(boards.Count);
         return boards;
     }
 }

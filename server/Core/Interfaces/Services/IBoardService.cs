@@ -5,7 +5,7 @@ namespace server.Core.Interfaces.Services;
 
 public interface IBoardService
 {
-    Task<Board> GetBoard(Guid id);
+    Task<Board?> GetBoard(Guid id);
     Task<bool> CreateBoard(CreateBoardDto board);
     Task<List<Board>> GetBoardsByUserIdAsync(Guid id);
 }

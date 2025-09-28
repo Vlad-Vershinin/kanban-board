@@ -17,7 +17,7 @@ public class BoardService : IBoardService
         _userRepository = userRepository;
     }
 
-    public async Task<Board> GetBoard(Guid id)
+    public async Task<Board?> GetBoard(Guid id)
     {
         return await _boardRepository.GetBoardByIdAsync(id);
     }
