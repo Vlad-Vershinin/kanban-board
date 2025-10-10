@@ -16,6 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\server.Application\server.Application.csproj" />
+    <ProjectReference Include="..\server.Infrastucture\server.Infrastucture.csproj" />
+    <ProjectReference Include="..\server.Logic\server.Domain.csproj" />
     <ProjectReference Include="..\server.Persistence\server.Persistence.csproj" />
   </ItemGroup>
 

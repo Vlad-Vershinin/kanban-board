@@ -1,4 +1,7 @@
-﻿namespace server.Domain.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace server.Domain.Models;
 
 public class Board
 {

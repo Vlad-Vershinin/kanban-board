@@ -25,11 +25,7 @@ public class Program
             });
         });
 
-        builder.Services.AddLogging();
-
         var app = builder.Build();
-
-        app.UseHttpLogging();
 
         if (app.Environment.IsDevelopment())
         {
