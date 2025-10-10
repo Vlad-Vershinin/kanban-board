@@ -8,6 +8,9 @@ public class UserBoardRoleConfiguration : IEntityTypeConfiguration<UserBoardRole
 {
     public void Configure(EntityTypeBuilder<UserBoardRole> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(ubr => ubr.Id);
+
+        builder.HasIndex(ubr => new { ubr.UserId, ubr.BoardId })
+              .IsUnique();
     }
 }

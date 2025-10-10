@@ -10,5 +10,6 @@ public class Issue
     public string Status {  get; set; } = string.Empty;
     public Guid ColumnId { get; set; }
 
+    public Column? Column { get; set; }
     [JsonIgnore] public List<User> UsersPerform { get; set; } = [];
 }

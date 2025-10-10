@@ -4,10 +4,16 @@ using server.Domain.Models;
 
 namespace server.Persistence.Configurations;
 
-public class ColumnConfiguration : IEntityTypeConfiguration<Board>
+public class ColumnConfiguration : IEntityTypeConfiguration<Column>
 {
-    public void Configure(EntityTypeBuilder<Board> builder)
+    public void Configure(EntityTypeBuilder<Column> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(c => c.Id);
+
+        builder
+            .HasOne(c => c.Board)
+            .WithMany(b => b.Columns)
+            .HasForeignKey(c => c.BoardId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

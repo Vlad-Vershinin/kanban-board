@@ -8,6 +8,11 @@ public class IssueConfiguration : IEntityTypeConfiguration<Issue>
 {
     public void Configure(EntityTypeBuilder<Issue> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(i => i.Id);
+
+        builder
+            .HasOne(i => i.Column)
+            .WithMany(c => c.Issues)
+            .HasForeignKey(i => i.ColumnId);
     }
 }
