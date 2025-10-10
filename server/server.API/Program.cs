@@ -17,20 +17,35 @@ public class Program
         {
             options.AddPolicy("Dev", policy =>
             {
-                policy.WithOrigins("http://localhost:3000")
+                policy.WithOrigins("http://localhost:3000",
+                                   "https://localhost:3000")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
             });
         });
 
+        builder.Services.AddLogging();
+
         var app = builder.Build();
 
         app.UseHttpLogging();
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+        }
+        else
+        {
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
+        }
+
         app.UseHttpsRedirection();
         app.UseRouting();
         app.UseCors("Dev");
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();
