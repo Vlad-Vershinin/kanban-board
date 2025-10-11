@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\server.Logic\server.Domain.csproj" />
+    <ProjectReference Include="..\server.Application\server.Application.csproj" />
+    <ProjectReference Include="..\server.Domain\server.Domain.csproj" />
   </ItemGroup>
 
 </Project>

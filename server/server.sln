@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server.Application", "serve
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server.Infrastucture", "server.Infrastucture\server.Infrastucture.csproj", "{FB561A44-7C3C-5313-680A-391698F494C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server.Domain", "server.Logic\server.Domain.csproj", "{64B93A7F-6B0D-4A75-987E-404E35E77B20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server.Domain", "server.Domain\server.Domain.csproj", "{64B93A7F-6B0D-4A75-987E-404E35E77B20}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "server.Persistence", "server.Persistence\server.Persistence.csproj", "{E54BD07D-C7F5-4FB6-8B05-A9588EC3BCBE}"
 EndProject

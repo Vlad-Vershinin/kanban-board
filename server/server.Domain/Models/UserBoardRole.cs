@@ -10,6 +10,6 @@ public class UserBoardRole
     public Guid BoardId { get; set; }
     public string Role { get; set; } = string.Empty;
 
-    [JsonIgnore] public User? User { get; set; }
-    [JsonIgnore] public Board? Board { get; set; }
+    [JsonIgnore] public User User { get; set; }
+    [JsonIgnore] public Board Board { get; set; }
 }
