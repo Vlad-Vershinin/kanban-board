@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using server.Application.Interfaces.Repositories;
+using server.Domain.Interfaces.Repositories;
 using server.Domain.Models;
 using System;
 using System.Collections.Generic;

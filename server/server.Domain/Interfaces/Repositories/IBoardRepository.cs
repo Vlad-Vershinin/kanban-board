@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace server.Application.Interfaces.Repositories;
+namespace server.Domain.Interfaces.Repositories;
 
 public interface IBoardRepository
 {
