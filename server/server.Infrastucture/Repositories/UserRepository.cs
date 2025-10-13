@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using server.Application.Interfaces.Repositories;
 using server.Domain.Models;
+using server.Persistence;
 using System;
 using System.Threading.Tasks;
 
-namespace server.Persistence.Repositories;
+namespace server.Infrastucture.Repositories;
 
 public class UserRepository : IUserRepository
 {

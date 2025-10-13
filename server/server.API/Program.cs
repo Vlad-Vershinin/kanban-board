@@ -6,6 +6,7 @@ using server.Application.Interfaces.Repositories;
 using server.Application.Validators.Users;
 using server.Domain.Interfaces.Repositories;
 using server.Domain.Interfaces.Services;
+using server.Infrastucture.Services;
 using server.Persistence;
 using server.Persistence.Repositories;
 
@@ -27,6 +28,9 @@ public class Program
         // services
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IBoardService, BoardService>();
+
+        // infrastructure services
+        builder.Services.AddScoped<PasswordService>();
 
         builder.Services.AddControllers();
 

@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using server.Domain.Interfaces.Repositories;
 using server.Domain.Models;
+using server.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace server.Persistence.Repositories;
+namespace server.Infrastucture.Repositories;
 
 public class BoardRepository : IBoardRepository
 {
