@@ -4,16 +4,16 @@ using server.Domain.Interfaces.Services;
 using server.Domain.Models;
 using System;
 using System.Threading.Tasks;
-using server.Infrastucture.Services;
+using server.Domain.Exceptions.User;
 
 namespace server.Application.Interfaces;
 
 public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
-    private readonly PasswordService _passwordService;
+    private readonly IPasswordService _passwordService;
 
-    public UserService(IUserRepository repository, PasswordService passwordService)
+    public UserService(IUserRepository repository, IPasswordService passwordService)
     {
         _repository = repository;
         _passwordService = passwordService;
@@ -21,6 +21,9 @@ public class UserService : IUserService
 
     public async Task RegisterUser(RegisterDto registerDto)
     {
+        if (await _repository.IsUserExistByLogin(registerDto.Login))
+            throw new UserRegistrationException("Пользователь с таким логином уже существует");
+
         var user = new User()
         {
             Id = Guid.NewGuid(),

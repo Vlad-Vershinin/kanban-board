@@ -24,16 +24,29 @@ public class UserRepository : IUserRepository
 
     public async Task<User> GetUserById(Guid id)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == id); 
+        return await _dbContext.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Id == id); 
     }
 
     public async Task<User> GetUserByLogin(string login)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(u => u.Login == login);
+        return await _dbContext.Users
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Login == login);
     }
 
-    public async Task<bool> IsUserExist(User user)
+    public async Task<bool> IsUserExistById(Guid id)
     {
-        return await GetUserById(user.Id) != null;
+        return await _dbContext.Users
+            .AsNoTracking()
+            .AnyAsync(u => u.Id == id);
+    }
+
+    public async Task<bool> IsUserExistByLogin(string login)
+    {
+        return await _dbContext.Users
+            .AsNoTracking()
+            .AnyAsync(u => u.Login == login);
     }
 }

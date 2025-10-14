@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using server.Domain.DTOs;
+using server.Domain.Exceptions.User;
 using server.Domain.Interfaces.Services;
 
 namespace server.API.Cntrollers;
@@ -18,8 +19,11 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
-        await _userService.RegisterUser(dto);
-
-        return Ok();
+        try
+        {
+            await _userService.RegisterUser(dto);
+            return Ok();
+        }
+        catch (UserRegistrationException ex) { return BadRequest(ex.Message); }
     }
 }

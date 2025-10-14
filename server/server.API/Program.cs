@@ -6,9 +6,9 @@ using server.Application.Interfaces.Repositories;
 using server.Application.Validators.Users;
 using server.Domain.Interfaces.Repositories;
 using server.Domain.Interfaces.Services;
+using server.Infrastucture.Repositories;
 using server.Infrastucture.Services;
 using server.Persistence;
-using server.Persistence.Repositories;
 
 namespace server.API;
 
@@ -30,7 +30,7 @@ public class Program
         builder.Services.AddScoped<IBoardService, BoardService>();
 
         // infrastructure services
-        builder.Services.AddScoped<PasswordService>();
+        builder.Services.AddScoped<IPasswordService, PasswordService>();
 
         builder.Services.AddControllers();
 

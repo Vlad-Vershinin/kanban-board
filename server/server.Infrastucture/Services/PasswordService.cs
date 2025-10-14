@@ -1,6 +1,8 @@
-﻿namespace server.Infrastucture.Services;
+﻿using server.Domain.Interfaces.Services;
 
-public class PasswordService
+namespace server.Infrastucture.Services;
+
+public class PasswordService : IPasswordService
 {
     public string HashPassword(string password)
     {
