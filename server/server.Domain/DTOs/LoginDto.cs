@@ -2,7 +2,6 @@
 
 namespace server.Domain.DTOs;
 
-public record RegisterDto(
+public record LoginDto(
     [Required] string Login,
-    [Required] string Email,
     [Required] string Password);

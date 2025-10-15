@@ -12,11 +12,16 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _repository;
     private readonly IPasswordService _passwordService;
+    private readonly IJwtService _jwtService;
 
-    public UserService(IUserRepository repository, IPasswordService passwordService)
+    public UserService(
+        IUserRepository repository, 
+        IPasswordService passwordService,
+        IJwtService jwtService)
     {
         _repository = repository;
         _passwordService = passwordService;
+        _jwtService = jwtService;
     }
 
     public async Task RegisterUser(RegisterDto registerDto)
@@ -34,5 +39,22 @@ public class UserService : IUserService
         };
 
         await _repository.AddUser(user);
+    }
+
+    public async Task<string> LoginUser(LoginDto loginDto)
+    {
+        if (!await _repository.IsUserExistByLogin(loginDto.Login))
+            throw new UserLoginException("Такого пользователя не существует");
+
+        var user = await _repository.GetUserByLogin(loginDto.Login);
+
+        var result = _passwordService.ValidatePassword(loginDto.Password, user.Password);
+
+        if (result == false)
+            throw new UserLoginException("Логин или пароль неверный");
+
+        var token = _jwtService.GenerateToken(user);
+
+        return token;
     }
 }

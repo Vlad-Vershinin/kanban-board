@@ -26,4 +26,15 @@ public class AuthController : ControllerBase
         }
         catch (UserRegistrationException ex) { return BadRequest(ex.Message); }
     }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDto dto)
+    {
+        try
+        {
+            var token = await _userService.LoginUser(dto);
+            return Ok(token);
+        }
+        catch (UserLoginException ex) { return BadRequest(ex.Message); }
+    }
 }

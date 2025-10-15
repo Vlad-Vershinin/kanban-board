@@ -18,6 +18,8 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection(nameof(JwtOptions)));
+
         builder.Services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -31,6 +33,7 @@ public class Program
 
         // infrastructure services
         builder.Services.AddScoped<IPasswordService, PasswordService>();
+        builder.Services.AddScoped<IJwtService, JwtService>();
 
         builder.Services.AddControllers();
 
