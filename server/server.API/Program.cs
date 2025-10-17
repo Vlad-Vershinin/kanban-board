@@ -40,6 +40,7 @@ public class Program
         builder.Services.AddFluentValidationAutoValidation();
         builder.Services.AddFluentValidationClientsideAdapters();
         builder.Services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
+        builder.Services.AddValidatorsFromAssemblyContaining<LoginUserValidator>();
 
         builder.Services.AddCors(options =>
         {
